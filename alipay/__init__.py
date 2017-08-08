@@ -137,7 +137,7 @@ class AliPay():
         return data
 
     def sign_data(self, data):
-        data.pop("sign", None)
+        data.get("sign", None)
         # 排序后的字符串
         unsigned_items = self.__ordered_data(data)
         unsigned_string = "&".join("{}={}".format(k, v) for k, v in unsigned_items)
@@ -164,7 +164,7 @@ class AliPay():
 
     def verify(self, data, signature):
         if "sign_type" in data:
-            sign_type = data.pop("sign_type")
+            sign_type = data.get("sign_type")
             if sign_type != self.__sign_type:
                 raise AliPayException(None, "Unknown sign type: {}".format(sign_type))
         # 排序后的字符串
